@@ -1,16 +1,16 @@
 const Mongoose = require('mongoose');
 
 const userSchema = new Mongoose.Schema({
-    id: {
-        type: Mongoose.SchemaTypes.ObjectId
+        _id: {
+            type: Mongoose.Types.ObjectId
+        },
+        title: {
+            type: String
+        }
     },
-    title: {
-        type: String
-    }
-},
     {
         collection: 'users'
     }
 );
 
-module.exports = Mongoose.model('Users', userSchema)
+module.exports = Mongoose.model('User', userSchema);

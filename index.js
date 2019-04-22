@@ -1,7 +1,15 @@
-const mongoose = require('mongoose');
-const users = require('./app/users');
+const MongoClient = require('mongodb').MongoClient;
+const User = require('./app/user');
 
-const db_url = 'mongodb://localhost:27017';
-const db = "usersdb";
+const url = 'mongodb://localhost:27017/';
+const mongoClient = new MongoClient(url, { useNewUrlParser: true });
 
-console.log(users);
+mongoClient.connect(function(err, client) {
+    const db = client.db('tempdb');
+    const collection = db.collection('users');
+
+    collection.insertOne(new User({ title: 'Andrew' }), function(err, res) {
+        console.log(res);
+        client.close();
+    });
+});
