@@ -9,7 +9,9 @@ const taskSchema = Mongoose.Schema({
     description: {type: String},
     assignee: {type: User},
 },
-    { collection: 'tasks' }
+    {
+        collection: 'tasks'
+    }
 );
 
 module.exports = Mongoose.model('Task', taskSchema);
