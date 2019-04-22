@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
-const users = require('./app/users');
+const User = require('./app/user');
 
-const db_url = 'mongodb://localhost:27017';
-const db = "usersdb";
+const user = new User({title: 'Andrew'});
 
-console.log(users);
+console.log(user);
