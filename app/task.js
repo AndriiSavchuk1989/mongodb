@@ -2,26 +2,16 @@ const Mongoose = require('mongoose');
 
 const User = require('./user');
 
-const taskSchema = new Mongoose.Schema({
-        id: {
-            type: ObjectId
-        },
-        title: {
-            type: String
-        },
-        order: {
-            type: Number
-        },
-        description: {
-            type: String
-        },
-        assignee: {
-            type: User
-        }
-    },
+const taskSchema = Mongoose.Schema({
+    _id: {type: Mongoose.Schema.Types.ObjectId},
+    title: {type: String},
+    order: {type: Date},
+    description: {type: String},
+    assignee: {type: User},
+},
     {
         collection: 'tasks'
     }
 );
 
-module.exports = Mongoose.model('Tasks', taskSchema)
+module.exports = Mongoose.model('Task', taskSchema);
