@@ -10,9 +10,9 @@ mongoClient.connect(function(err, client){
     const db = client.db("scheduler_db");
     const collection = db.collection("users");
 
-    collection.insertMany(users, function(err, results){
+    //collection.insertMany(users, function(err, results){
 
-        console.log(results);
-        client.close();
-    });
+        //console.log(results);
+        //client.close();
+    //});
 });
