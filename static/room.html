@@ -71,6 +71,7 @@
                     let tasksValues = document.getElementsByClassName('task-value');
                     let currentButton =  event.target;
                     let currentBoard = this;
+                    console.log(this);
 
                     for (let i = 0; i < btns.length; i++) {
                         if (btns[i] === currentButton && tasksValues[i].value.length) {
