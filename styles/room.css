@@ -1,0 +1,45 @@
+.header {
+    overflow: hidden;
+    background-color: #f1f1f1;
+    padding: 20px 10px;
+}
+
+/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+#create-board-btn {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Float the link section to the right */
+.header-right {
+    float: right;
+}
+
+#boards-container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 25%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.board-wrapper {
+    margin: 50px 25px;
+    border: 1px solid #f1f1f1;
+}
+
+.board-name {
+    text-align: center;
+    color: #000;
+    font-weight: bolder;
+}
+
+.task {
+    color: #000;
+    font-weight: bold;
+    text-align: left;
+    padding: 5px;
+}
