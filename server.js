@@ -55,7 +55,7 @@ app.get('/boards', (request, response) => {
 app.post('/create-task', (req, res) => {
     const task = new Task({id: req.body.id, title: req.body.title});
     console.log("-----", req);
-    //db.collection('boards').find({id: req.body.id}).insertOne()
+    //db.collection('boards').find({id: req.body.id})
     db.collection('tasks').save(task, (error) => {
         if (error) {
             return console.log(error);
