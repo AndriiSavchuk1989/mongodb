@@ -104,9 +104,69 @@ window.onload = function () {
         const quantity = data.length;
 
         for (let i = 0; i < quantity; i++) {
-            createBoard();
-            const boardName = document.getElementsByClassName('board-name')[i];
-            boardName.appendChild(document.createTextNode(data[i].title));
+            const boardWrapper = document.createElement('div');
+            boardWrapper.className = 'board-wrapper';
+
+            const boardName = document.createElement('p');
+            boardName.className = 'board-name';
+            boardTitle = `${data[i].title}`;
+            boardName.appendChild(document.createTextNode(boardTitle));
+
+            const board = document.createElement('div');
+            board.className = 'board';
+
+            const taskCreatorWrapper = document.createElement('div');
+            taskCreatorWrapper.className = 'task-creator-wrapper';
+
+            const taskCreator = document.createElement('div');
+            taskCreator.className = 'task-creator';
+
+            const inputButton = document.createElement('input');
+            inputButton.className = 'add-task-btn';
+            inputButton.setAttribute('type', 'button');
+            inputButton.setAttribute('value', '+');
+
+            const inputText = document.createElement('input');
+            inputText.className = 'task-value';
+            inputText.setAttribute('type', 'text');
+            inputText.setAttribute('value', '');
+
+            const tasksListWrapper = document.createElement('div');
+            tasksListWrapper.className = 'tasks-list-wrapper';
+
+            const tasksList = document.createElement('div');
+            tasksList.className = 'tasks-list';
+
+            tasksListWrapper.appendChild(tasksList);
+            taskCreatorWrapper.appendChild(inputText);
+            taskCreatorWrapper.insertBefore(inputButton, inputText);
+            board.appendChild(tasksListWrapper);
+            board.insertBefore(taskCreatorWrapper, tasksListWrapper);
+
+            boardWrapper.appendChild(board);
+            boardWrapper.insertBefore(boardName, board);
+
+            boardWrapper.addEventListener('click', function(event){
+                let btns = document.getElementsByClassName('add-task-btn');
+                let tasksValues = document.getElementsByClassName('task-value');
+                let currentButton =  event.target;
+                let currentBoard = this;
+
+                for (let i = 0; i < btns.length; i++) {
+                    if (btns[i] === currentButton && tasksValues[i].value.length) {
+                        let task = document.createElement('p');
+                        task.className = 'task';
+                        task.appendChild(document.createTextNode(tasksValues[i].value));
+                        currentBoard.appendChild(task);
+                        tasksValues[i].value = '';
+                    }
+                }
+            });
+
+            container.appendChild(boardWrapper);
+            createBoardBtn.removeEventListener('click', function () {
+                createBoard();
+            });
         }
     };
     createBoardBtn.addEventListener('click', function() {
