@@ -1,15 +1,14 @@
 const Mongoose = require('mongoose');
-const Task = require('task.model');
 
 const listSchema = new Mongoose.Schema({
     id: {
         type: Number
     },
-    tasks: [{type: Task, ref: 'Task'}],
+    tasks: [{type: Mongoose.Schema.Types.ObjectId, ref: 'Task'}],
     },
     {
         collection: 'tasks'
     }
 );
 
-module.exports = Mongoose.model('Task', listSchema);
+module.exports = Mongoose.model('List', listSchema);
