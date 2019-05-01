@@ -1,6 +1,6 @@
 const MongoClient = require("mongodb").MongoClient;
 
-const url = "mongodb://localhost:27017/";
+const url = "mongodb://localhost:28017/";
 const mongoClient = new MongoClient(url, { useNewUrlParser: true });
 
 let users = [{name: "User1", age: 26} , {name: "User2", age: 21}, {name: "User3", age: 25}];
