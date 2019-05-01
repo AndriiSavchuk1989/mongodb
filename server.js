@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Board = require('./models/board.model');
+const Task = require('./models/task.model');
 
 const MongoClient = require('mongodb').MongoClient;
 
@@ -44,6 +45,28 @@ app.post('/create-board', (req, res) => {
 
 app.get('/boards', (request, response) => {
     db.collection('boards').find().toArray((error, result) => {
+        if (error) {
+            return console.log(error);
+        }
+        response.send(result);
+    });
+});
+
+app.post('/create-task', (req, res) => {
+    const task = new Task({id: req.body.id, title: req.body.title});
+    console.log("-----", req);
+    //db.collection('boards').find({id: req.body.id})
+    db.collection('tasks').save(task, (error) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Task added to db');
+        res.sendStatus(201);
+    });
+});
+
+app.get('/tasks', (request, response) => {
+    db.collection('tasks').find().toArray((error, result) => {
         if (error) {
             return console.log(error);
         }

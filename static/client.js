@@ -1,9 +1,15 @@
 window.onload = function () {
 
     let counter, boardTitle;
-    fetchBoards();
 
-    function fetchBoards() {
+    fetchAllData();
+
+    function fetchAllData() {
+        fetchBoards();
+        fetchTasks();
+    };
+
+     function fetchBoards(){
         fetch('/boards', {method: 'GET'})
             .then(function(response) {
                 if(response.ok) return response.json();
@@ -29,7 +35,51 @@ window.onload = function () {
             });
     };
 
-    //fetchBoards();
+    function fetchTasks(){
+        fetch('/tasks', {method: 'GET'})
+            .then(function(response) {
+                if(response.ok) return response.json();
+                throw new Error('Request failed.');
+            })
+            .then(function(tasks) {
+                let arr = Object.keys(tasks).map(function(k) { return tasks[k] });
+                let trueArr = [];
+                for (let i = 0; i < arr.length; i++){
+                    trueArr.push(arr[i]);
+                }
+                let tasksCounter = tasks.length;
+                console.log('tasks', tasksCounter);
+
+                let boards = document.getElementsByClassName('board');
+
+                if (boards.length) {
+                    for (let i = 0; i < boards.length; i++) {
+                        if (tasks.length) {
+
+                            const tasksListWrapper = document.getElementsByClassName('tasks-list-wrapper');
+                            const tasksList = document.getElementsByClassName('tasks-list');
+
+                            for (let j = 0; j < tasks.length; j++) {
+                                const task = document.createElement('p');
+                                task.className = 'task';
+                                if (i === tasks[j].id) {
+                                    task.appendChild(document.createTextNode(tasks[j].title));
+                                    tasksList[i].appendChild(task);
+                                    tasksListWrapper[i].appendChild(tasksList[i]);
+                                }
+                                boards[i].appendChild(tasksListWrapper[i]);
+                            }
+                        }
+
+                    }
+                }
+
+                console.log('boards quantity', boards.length);
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    };
 
     const container = document.getElementById('boards-container');
     const createBoardBtn = document.getElementById('create-board-btn');
@@ -158,6 +208,29 @@ window.onload = function () {
                         task.className = 'task';
                         task.appendChild(document.createTextNode(tasksValues[i].value));
                         currentBoard.appendChild(task);
+
+                        // create task item with credentials
+                        const taskItem = { id: i, title: tasksValues[i].value };
+                        const options = {
+                            method: 'POST',
+                            body: JSON.stringify(taskItem),
+                            headers: {
+                                'content-type': 'application/json',
+                            },
+                        };
+
+                        fetch('/create-task', options)
+                            .then(function(response) {
+                                if(response.ok) {
+                                    console.log('click was recorded');
+                                    return;
+                                }
+                                throw new Error('Request failed.');
+                            })
+                            .catch(function(error) {
+                                console.log(error);
+                            });
+
                         tasksValues[i].value = '';
                     }
                 }

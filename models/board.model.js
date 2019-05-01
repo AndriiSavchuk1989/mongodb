@@ -6,7 +6,8 @@ const boardSchema = new Mongoose.Schema({
         },
         title: {
             type: String
-        }
+        },
+        tasks: [{type: Mongoose.Schema.Types.ObjectId, ref: 'Task'}]
     },
     {
         collection: 'boards'
@@ -14,4 +15,3 @@ const boardSchema = new Mongoose.Schema({
 );
 
 module.exports = Mongoose.model('Board', boardSchema);
-

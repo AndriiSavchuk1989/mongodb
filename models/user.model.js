@@ -9,8 +9,8 @@ const userSchema = new Mongoose.Schema({
         }
     },
     {
-        collection: 'users'
-    }
+    collection: 'users'
+}
 );
 
 module.exports = Mongoose.model('User', userSchema);
