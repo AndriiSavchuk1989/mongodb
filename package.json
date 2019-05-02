@@ -16,13 +16,17 @@
     "mongodb": "^2.2.33",
     "mongoose": "^5.5.2",
     "normalize.css": "^8.0.1",
+    "path": "^0.12.7",
     "requirejs": "^2.3.6"
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
   },
   "nodemonConfig": {
-    "ignore": ["test/*", "docs/*"],
+    "ignore": [
+      "test/*",
+      "docs/*"
+    ],
     "delay": "2500"
   }
 }

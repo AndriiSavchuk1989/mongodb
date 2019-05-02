@@ -4,13 +4,19 @@ const userSchema = new Mongoose.Schema({
         _id: {
             type: Mongoose.Types.ObjectId
         },
-        title: {
+        name: {
+            type: String
+        },
+        surname: {
+            type: String
+        },
+        email: {
             type: String
         }
     },
     {
     collection: 'users'
-}
+    }
 );
 
 module.exports = Mongoose.model('User', userSchema);
