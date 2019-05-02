@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Board = require('./models/board.model');
 const Task = require('./models/task.model');
+const User = require('./models/user.model');
+const router = express.Router();
+const path = require('path');
 
 const MongoClient = require('mongodb').MongoClient;
 
@@ -29,6 +32,10 @@ MongoClient.connect(url, (error, client) => {
 
 app.get('/', (request, response) => {
     response.sendFile(__dirname + '/static/room.html');
+});
+
+app.get('/registration', (request, response) => {
+    response.sendFile(__dirname + '/static/registration.html');
 });
 
 app.post('/create-board', (req, res) => {
@@ -67,6 +74,27 @@ app.post('/create-task', (req, res) => {
 
 app.get('/tasks', (request, response) => {
     db.collection('tasks').find().toArray((error, result) => {
+        if (error) {
+            return console.log(error);
+        }
+        response.send(result);
+    });
+});
+
+app.post('/register-new-user', (req, res) => {
+    const user = new User({name: req.body.name, surname: req.body.surname, email: req.body.email});
+    console.log("-----", user);
+    db.collection('users').save(user, (error) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('User added to db');
+        res.sendStatus(201);
+    });
+});
+
+app.get('/users', (request, response) => {
+    db.collection('users').find().toArray((error, result) => {
         if (error) {
             return console.log(error);
         }
